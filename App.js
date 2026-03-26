@@ -9,7 +9,6 @@ const App = () => {
     { id: 3, mensaje: "Tienes una nueva solicitud", leida: false },
   ]);
 
-  // 🔥 useEffect para simular notificaciones cada 5 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       setNotificaciones((prev) => {
@@ -25,10 +24,9 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ contador correcto (solo no leídas)
+
   const noLeidas = notificaciones.filter(n => !n.leida).length;
 
-  // ✅ marcar una como leída
   const marcarComoLeida = (id) => {
     const nuevas = notificaciones.map(n =>
       n.id === id ? { ...n, leida: true } : n
@@ -36,7 +34,6 @@ const App = () => {
     setNotificaciones(nuevas);
   };
 
-  // ✅ marcar todas como leídas
   const marcarTodas = () => {
     const nuevas = notificaciones.map(n => ({ ...n, leida: true }));
     setNotificaciones(nuevas);
@@ -45,20 +42,15 @@ const App = () => {
   return (
     <View style={styles.container}>
 
-      {/* Header estilo Facebook */}
       <View style={styles.header}>
         <Text style={styles.titulo}>facebook</Text>
-        <View style={styles.badge}>
-          <Text style={styles.contador}>{noLeidas}</Text>
-        </View>
+        <Text style={styles.contador}>{noLeidas}</Text>
       </View>
 
-      {/* Botón */}
       <View style={styles.boton}>
         <Button title="Marcar todas como leídas" onPress={marcarTodas} />
       </View>
 
-      {/* Lista */}
       <ScrollView>
         {notificaciones.map((item) => (
           <TouchableOpacity
